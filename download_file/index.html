@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet"href="style.css">
+    <script src="blob.js"></script>
+</head>
+<body background="bg.jpg">
+    
+        
+        
+    <div class="form_wrapper">
+        <div class="form_container">
+          <div class="title_container">
+            <h2>Register Here</h2>
+          </div>
+          <div class="row clearfix">
+            <div class="">
+              <form>
+                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                  <input type="email" id="email" name="email" placeholder="Email" required />
+                </div>
+                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                  <input type="password" id="password" name="password" placeholder="Password" required />
+                </div>
+                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                  <input type="password" id="Repassword" name="password" placeholder="Re-type Password" required />
+                </div>
+                <div class="row clearfix">
+                  <div class="col_half">
+                    <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                      <input type="text" id="Firstname" name="name" placeholder="First Name" />
+                    </div>
+                  </div>
+                  <div class="col_half">
+                    <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                      <input type="text" id=Lastname name="name" placeholder="Last Name" required />
+                    </div>
+                  </div>
+                </div>
+                   
+                    <div class="input_field select_option">
+                        <div>
+                            <select id="selCountry">
+                                <option selected value="">-- Choose the country --</option>
+                                <option value="India">India</option>
+                                <option value="Japan">Japan</option>
+                                <option value="USA">USA</option>
+                            </select>
+                        </div>
+                    
+                  <div>
+                    <input type="button" id="bt" value="Save data to file" onclick="saveFile()" style="margin-top: 8%;" />
+                </div>      
+              </form>
+            </div>
+          </div>
+        </div>
+       </div>
+    </div> 
+</body>
+<script>
+    let saveFile = () => {
+    	
+        // Get the data from each element on the form.
+    	const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        const Repassword = document.getElementById('Repassword');
+        const firstname = document.getElementById('Firstname');
+        const lastname = document.getElementById('Lastname');
+        // const gender = document.getElementById('Gender');
+        const country = document.getElementById('selCountry');
+        
+        // This variable stores all the data.
+        let data = 
+            '\r Email: ' + email.value + ' \r\n ' + 
+            'Password: ' +password.value + ' \r\n ' + 
+            'Email: ' + Repassword.value + ' \r\n ' + 
+            'Firstname: ' + Firstname.value + ' \r\n ' + 
+            'Lastname: ' + Lastname.value + ' \r\n ' + 
+            // 'Gender: ' + Gender.value + ' \r\n ' + 
+            'Country: ' + selCountry.value;
+        
+        // Convert the text to BLOB.
+        const textToBLOB = new Blob([data], { type: 'text/plain' });
+        const sFileName = 'formData.txt';	   // The file to save the data.
+
+        let newLink = document.createElement("a");
+        newLink.download = sFileName;
+
+        if (window.webkitURL != null) {
+            newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+        }
+        else {
+            newLink.href = window.URL.createObjectURL(textToBLOB);
+            newLink.style.display = "none";
+            document.body.appendChild(newLink);
+        }
+
+        newLink.click(); 
+    }
+</script>
+</html>
